@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lab3</title>
+    <h:outputStylesheet library="css" name="index.css" />
+    <h:outputStylesheet library="css" name="common.css" />
+</h:head>
+
+<h:body style="text-align: center">
+    
+    <h:graphicImage id="user_image" value="#{resource['images/user.png']}"></h:graphicImage>
+    <br/>
+
+    <table class="main_table">
+        
+        <tr>
+            <td></td>
+            <td>
+                <h:link styleClass="home" value = "Home" outcome = "/views/index.xhtml" />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+        <td class="reference" valign="top">
+            <h:form style="margin: 0 auto; padding: 1%; width: 85%">
+                <p:clock displayMode="analog" mode="server" autoSync="true" syncInterval="10000"/>
+            </h:form>
+        </td>
+        <td class="info">
+            <br />
+            Anastasia Pronina
+            <p>
+                <img src="#{resource['images/Фото.jpg']}" align="top" alt="{photo}" width="275" 
+                 height="275" hspace="0" vspace="0"/>
+            </p>
+            <p class="paragraph">
+                Student of group P3233 <br />
+                Faculty of Software Engineering and Computer Systems
+            </p>
+            <p>ITMO University</p>
+        </td>
+        <td class="reference" valign="top">
+            <li>
+                <button class="reference_button">
+                    <a href="lab1.html">Lab1</a>
+                </button>
+            </li>
+            <li>
+                <button class="reference_button">
+                    <h:link value = "Lab3" outcome = "goToMain" />
+                </button>
+            </li>
+            <li>
+                <button class="reference_button">
+                    <h:link value = "test" outcome = "goToTest" />
+                </button>
+            </li>
+            <li>
+                <button class="reference_button">
+                    <h:link value = "Lab3-1" outcome = "lab3.xhtml" />
+                </button>
+            </li>
+        </td></tr>
+        <tr>
+            <td></td>
+            <td><br />e-mail: anastasiacontact@mail.ru</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <br />
+    
+</h:body>
+
+</html>

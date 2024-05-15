@@ -1,0 +1,104 @@
+body {
+    background-color: #f9f7f1;
+    font-family: monaco;
+    font-size: 14px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.home {
+    text-align: center;
+    font-family: monaco;
+    font-size: 20px;
+    
+}
+
+header {
+    text-align: center;
+    font-family: fantasy;
+    font-size: 16px;
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+a:visited {
+    text-decoration: none;
+    color: #333399;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+}
+
+table {
+    align-self: center;
+    margin: auto;
+    width: 65%;
+    height: 80%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.info {
+    width: 70%;
+    background-color: white;
+    border: 4px double #817e76;
+    font-size: 16px; 
+    text-align: center; 
+
+}
+
+.reference {
+    width: 15%;
+    background-color: #f9f7f1;
+
+}
+
+.paragraph {
+    margin-bottom: 0.5em;
+}
+
+.reference_button {
+    width: 100px;
+    display: inline-block;
+    background-color: white;
+    border: 1px solid #6b6b6b;
+    color: #6b6b6b;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 0px;
+    padding: 6px 12px 6px 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.reference_button:hover {
+    text-align: center;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+
+.reference_button a {
+    color: #6b6b6b;
+    text-decoration: none;
+}
+
+.reference_button a:hover {
+    color: black;
+}
+
+.button {
+    background-color: white;
+}
+
+li {
+    margin: 10px;
+}
+

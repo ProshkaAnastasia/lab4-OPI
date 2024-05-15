@@ -1,0 +1,69 @@
+.invisible_field{
+    display: none;
+}
+
+.form_panel {
+    margin-bottom: 10px;
+    width: 90%;
+    align-self: center;
+    vertical-align: top;
+}
+
+#graphix {
+    border: 1px solid black;
+}
+
+#dialog_button {
+    float: right;
+}
+
+.link_choice {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    display: inline-block;
+    width: 6em;
+    align-self: center;
+    height: 2em;
+    line-height: 1.5em;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    outline: none;
+    border: 2px solid #817e76;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .2em .2em .4em #817e76;
+    background: #f9f7f1;
+}
+
+.link_choice_active {
+    top: .1em;
+    left: .1em;
+    box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
+}
+
+.panel_group {
+    vertical-align: top;
+}
+
+.cell {
+    border: 4px double #817e76;
+}
+
+#data {
+    background-color: white;
+    border: 4px double #817e76;
+    font-size: 16px; 
+    text-align: center; 
+}
+
+#data_table {
+    align-self: center;
+    margin: auto;
+    align-self: center;
+    border: 4px double #817e76;
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+}

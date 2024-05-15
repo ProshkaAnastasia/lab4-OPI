@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lab3</title>
+    <h:outputStylesheet library="css" name="common.css" />
+    <h:outputStylesheet library="css" name="test.css" />
+
+</h:head>
+
+<h:body style="text-align: center">
+    
+    <h:graphicImage id="user_image" value="#{resource['images/user.png']}"></h:graphicImage>
+    <h:panelGrid rendered="#{!user.authorized()}" id="unknown_dialog" class="drop-menu" columns="1" cellpadding = "0" cellspacing = "0" style="text-align: center;">
+        <h:button class="user_button" outcome="in_form" value="Sign in"></h:button>
+        <h:button class="user_button" outcome="reg_form" value = "Sign up"></h:button>
+    </h:panelGrid>
+    <h:panelGrid rendered="#{user.authorized()}" id="user_dialog" class="drop-menu" columns="1">
+        <div style="padding: 10px" class="info_menu">
+            <div style="font-size: 12px; margin-bottom: 5px;">#{user.getUser().getName()}</div>
+            <div style="font-size: 10px; margin-bottom: 5px;">#{user.getUser().getLogin()}</div>
+            <hr/>
+            <h:form>
+                <h:commandButton id="quit" class="user_button" value="Quit" action="#{user.quit}"></h:commandButton>
+            </h:form>
+        </div>
+    </h:panelGrid>
+    
+    <br/>
+
+    <table id="main_table">
+        <tr>
+            <td></td>
+            <td>
+                <h:link styleClass="home" value = "Home" outcome = "goToIndex" />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="edge" valign="top">
+                <h:form style="margin: 0 auto; padding: 1%; width: 85%">
+                    <p:clock displayMode="analog" mode="server" autoSync="true" syncInterval="10000"/>
+                </h:form>
+            </td>
+            <td class="center">
+                <br/>
+                <canvas id="graphix" width="500" height="500"></canvas>
+                <br/>
+                <input id="slider" value="50" name="scale" type="range" min="20" max="100"/><br/>
+                <label id ="scale" name="scale">Масштаб: 50px</label>
+                <hr/>
+                <h:form id="form">
+                    <h:inputText id = "x" class="invisible_field" value = "#{pointRequest.x}"></h:inputText>
+                    <h:inputText id = "y" class="invisible_field" value = "#{pointRequest.y}"></h:inputText>
+                    <h:inputText id = "r" class="invisible_field" value = "#{pointRequest.r}"></h:inputText>
+            
+        
+                    <table class="form_panel">
+                        <tr>
+                            <td style="width: 70%" valign="top">
+                                <h:outputText value = "Выберите значение координаты x:"></h:outputText>
+                                <br/>
+                                <br/>
+                                <p:inputText id="x_area" value="#{slider.value}" readonly="true"/> 
+                                <br/>
+                                <br/>
+                                <p:slider style="margin: auto; display: block; width: 50%" id="x_area_slider" for="x_area" minValue="-3" maxValue="3" step="0.5" range="false" onSlideEnd="processSlider()"/>
+                                <br/>
+                                <h:outputText value = "Введите значение координаты y:"></h:outputText>
+                                <br/>
+                                <h:inputText id="y_area"/>
+                                <br/>
+                                <br/>
+                                <table style="align-self: center; width: 100%;">
+                                    <tr>
+                                        <h:commandButton id="hidden_submit" style="width: 100px; display: none;" value="Отправить">
+                                                <f:ajax execute="x y r" render="my_form:outputMessage data_table" onevent="completeRequest" listener="#{pointRequest.processAreaRequest()}"></f:ajax>
+                                        </h:commandButton>
+                                        <td valign="top">
+                                            <h:commandButton id="submit" style="width: 100px" value="Отправить">
+                                                <f:ajax execute="x y r" render="my_form:outputMessage data_table" onevent="completeRequest" listener="#{pointRequest.processAreaRequest()}"></f:ajax>
+                                            </h:commandButton>
+                                            <br/>
+                                            <h:commandButton id="clear" ajax="true" style="width: 100px" value="Сбросить">
+                                                <f:ajax execute="x_area" render="x_area_slider x_area" listener="#{slider.changeSliderValue()}"></f:ajax>
+                                            </h:commandButton>
+                                            <br/>
+                                        </td>
+                                        <td valign="top">
+                                            <h:commandButton id="clear_table" style="width: 125px" value="Очистить таблицу">
+                                                <f:ajax render="data_table" listener="#{pointCollection.clear()}"></f:ajax>
+                                            </h:commandButton>
+                                            <br/>
+                                            <!--<h:button id="show_table" onclick="return false" style="width: 125px" value="Показать таблицу"></h:button>-->
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 30%" valign="top">
+                                <h:outputText value = "Выберите значение поля R:"></h:outputText>
+                                <br/>
+                                <h:commandLink class="link_choice" value = "1">
+                                    <f:ajax></f:ajax>
+                                </h:commandLink>
+                                <br/>
+                                <h:commandLink class="link_choice" value = "2">
+                                    <f:ajax></f:ajax>
+                                </h:commandLink>
+                                <br/>
+                                <h:commandLink class="link_choice" value = "3">
+                                    <f:ajax></f:ajax>
+                                </h:commandLink>
+                                <br/>
+                                <h:commandLink class="link_choice" value = "4">
+                                    <f:ajax></f:ajax>
+                                </h:commandLink>
+                                <br/>
+                                <h:commandLink class="link_choice" value = "5">
+                                    <f:ajax></f:ajax>
+                                </h:commandLink>
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </td>
+            <td class="edge" valign="top">
+                <li>
+                    <button class="reference_button">
+                        <a href="lab1.html">Lab1</a>
+                    </button>
+                </li>
+                <li>
+                    <button class="reference_button">
+                        <h:link value = "Lab3" outcome = "goToMain" />
+                    </button>
+                </li>
+                <li>
+                    <button class="reference_button">
+                        <h:link value = "test" outcome = "goToTest" />
+                    </button>
+                </li>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="data">
+                <h:dataTable id="data_table" value="#{pointCollection.points}" var="point">
+                    <h:column style="width: 15%;">    				
+                        <f:facet name = "header">X</f:facet>    				
+                        #{point.x}
+                    </h:column>
+                    <h:column style="width: 15%;">    				
+                        <f:facet name = "header">Y</f:facet>    				
+                        #{point.y}
+                    </h:column>
+                    <h:column style="width: 15%;">    				
+                        <f:facet name = "header">R</f:facet>    				
+                        #{point.r}
+                    </h:column>
+                    <h:column style="width: 15%;">    				
+                        <f:facet name = "header">Result</f:facet>    				
+                        #{point.result}
+                    </h:column>
+                    <h:column style="width: 40%;">    				
+                        <f:facet name = "header">Time</f:facet>    				
+                        #{point.getStringTime()}
+                    </h:column>
+                </h:dataTable>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+        <h:outputScript library="javascript" name="variables1.js" type="module"/>
+        <h:outputScript library="javascript" name="graphix1.js" type="module"/>
+        <h:outputScript library="javascript" name="validation1.js" type="module"/>
+        <h:outputScript library="javascript" name="request_logic.js" type="module"/>
+        <h:outputScript library="javascript" name="view_logic.js" type="module"/>
+</h:body>
+
+</html>

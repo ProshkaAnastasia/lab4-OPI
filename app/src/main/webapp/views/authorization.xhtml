@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lab3</title>
+    <h:outputStylesheet library="css" name="common.css" />
+    <h:outputStylesheet library="css" name="authorization.css" />
+
+</h:head>
+
+<h:body style="text-align: center">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <p:tooltip />
+    <table class="auth-table">
+        <tr>
+            <td>
+                <h:form id="form">
+                    <br/>
+                    <br/>
+                    <h:graphicImage id="logo_image" style="width: 100px" value="#{resource['images/duck.png']}"></h:graphicImage>
+                    <br/>
+                    <br/>
+                    <p:inputText class="form_element" id = "login" placeholder="Username" styleClass="form_element #{validatorBean.checkValidationResult('form:login') ? 'invalid_input' : ''}" value = "#{pointList.login}" required="true" requiredMessage="Поле не может быть пустым">
+                        <p:ajax process="@this" update="@form"></p:ajax>
+                    </p:inputText>
+                    <br/>
+                    <p:message for="login" display="tooltip"/>
+                    <br/>
+                    <p:password class="form_password" toggleMask="true" id = "password" styleClass="form_password #{validatorBean.checkValidationResult('form:password') ? 'invalid_input' : ''}" placeholder="Password" value = "#{pointList.password}" required="true" requiredMessage="Поле не может быть пустым">
+                        <f:validator validatorId="userValidator"></f:validator>
+                        <f:attribute name = "login" value="#{pointList.login}"></f:attribute>
+                    </p:password>
+                    <br/>
+                    <p:message for="password" display="tooltip"/>
+                    <br/>
+                    <h:commandButton class="form_element submit_button" value="Sign in">
+                        
+                        <f:ajax execute="@form" render="@form" listener="#{pointList.authorize()}"></f:ajax>
+                        
+                        
+                    </h:commandButton>
+                    <br/>
+                    <br/>
+                    
+
+                    <h:link class="form_link" value="Forgot password?" style="float: left">
+                        <f:ajax></f:ajax>
+                    </h:link>
+                    <h:link class="form_link" value="Sign up" outcome="goToReg" style="float: right"/>
+                    <!--
+                    <h:outputText id="output" value="#{pointList.password}"></h:outputText>
+                    -->
+                    <h:outputText id="output" value="#{pointList.password}"></h:outputText>
+                </h:form>
+                <br/>
+                <br/>
+            </td>
+        </tr>
+    </table>
+</h:body>
+
+</html>

@@ -1,0 +1,77 @@
+.auth-table {
+    align-self: center;
+    background-color: white;
+    width: 30%;
+    border: double 4px;
+    margin: auto;
+    text-align: center;
+    font-family: monaco;
+    font-size: 12px;
+}
+
+#logo_image {
+    border-radius: 100%;
+    width: 200px;
+    max-width: 50%;
+    max-height: 100px;
+}
+
+.auth-table td {
+    border: double 4px;
+}
+
+.form_element {
+    width: 80%;
+    height: 35px;
+}
+
+.submit_button {
+    color: white;
+    font-size: 13px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: darkgrey;
+    padding: 0;
+    border: 0;
+    align-self: center;
+    cursor: pointer;
+}
+
+.submit_button:hover {
+    background-color: grey;
+}
+
+.form_link {
+    padding-left: 9%;
+    padding-right: 11%;
+}
+
+.invalid_input.ui-inputfield, .invalid_input.ui-inputfield:hover, .invalid_input.ui-inputfield:focus {
+    border: solid 1px red;
+}
+
+.invalid_input.ui-inputfield:focus {
+    box-shadow: 0 0 5px red;
+}
+
+/*
+.ui-state-error {
+    border: solid 1px red;
+    box-shadow: 0 0 5px red;
+}
+*/
+
+.form_password {
+    height: 35px;
+    width: 100%;
+}
+
+.ui-password-masked {
+    width: 80%;
+}
+
+.ui-password-unmasked {
+    width: 80%;
+}
+  
+  
