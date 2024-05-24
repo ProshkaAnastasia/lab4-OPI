@@ -3,7 +3,9 @@
 ./gradle.properties
 
 wildfly.user = * // без кавычек
+
 wildfly.password = * // без кавычек
+
 wildfly.port = remote+http://localhost:* // номер порта, на котором запущен wildfly-managment
 
 ./app/src/main/resources/hibernate.cfg.xml

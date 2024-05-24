@@ -42,8 +42,8 @@ public class PointCDIBean implements Serializable{
     }
 
     public String processAreaRequest() throws IOException{
-        System.out.println("Something happened hrrrr");
-        System.out.println(x + " " + y + " " + r);
+        //System.out.println("Something happened hrrrr");
+        //System.out.println(x + " " + y + " " + r);
         try{
             Point point = new Point(x, y);
             long radius = r;
@@ -89,11 +89,11 @@ public class PointCDIBean implements Serializable{
     }
 
     public UPRecord processPoint(Point point, long r){
-        System.out.println(point.xValue() + " " + point.yValue() + " " + r);
+        //System.out.println(point.xValue() + " " + point.yValue() + " " + r);
         boolean result = checkFirstQuater(point, r) || checkSecondQuater(point, r) || checkThirdQuater(point, r) || checkFourthQuater(point, r);
-        System.out.println(result);
+        //System.out.println(result);
         UPRecord record = new UPRecord(point, r, result);
-        System.out.println(record.isResult());
+        //System.out.println(record.isResult());
         return record;
     }
 }

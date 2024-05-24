@@ -2,14 +2,27 @@ package beans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.management.ManagementFactory;
 import java.util.List;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
+
 import java.util.ArrayList;
 
 import classes.Point;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import mbeans.CountHits;
+import mbeans.SuccessPercentage;
 import models.UPRecord;
 import models.User;
 
@@ -26,6 +39,38 @@ public class PointListCDIBean implements Serializable {
     private String x = "";
     private String y = "";
     private String r = "";
+
+    private CountHits hitsCount;
+    private SuccessPercentage percentage;
+
+    @PostConstruct
+    void init(){
+        points = new ArrayList<>();
+        try {
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            ObjectName count = new ObjectName("mbeans:type=CountHits");
+            ObjectName perc = new ObjectName("mbeans:type=SuccessPercentage");
+            hitsCount = new CountHits();
+            percentage = new SuccessPercentage();
+            mbs.registerMBean(hitsCount, count);
+            mbs.registerMBean(percentage, perc);
+        } catch (MalformedObjectNameException | NotCompliantMBeanException | InstanceAlreadyExistsException | MBeanRegistrationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @PreDestroy
+    void destroy(){
+        try {
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            ObjectName count = new ObjectName("mbeans:type=CountHits");
+            ObjectName perc = new ObjectName("mbeans:type=SuccessPercentage");
+            mbs.unregisterMBean(count);
+            mbs.unregisterMBean(perc);
+        } catch (MalformedObjectNameException | InstanceNotFoundException | MBeanRegistrationException e) {
+            e.printStackTrace();
+        }
+    }
 
     public List<UPRecord> getPoints(){
         return points;
@@ -72,19 +117,16 @@ public class PointListCDIBean implements Serializable {
     }
 
     public String processAreaRequest() throws IOException{
-        System.out.println("Something happened hrrrr");
         try{
             Point point = new Point(Double.parseDouble(x), Double.parseDouble(y));
             long radius = Long.parseLong(r);
             UPRecord record = processPoint(point, radius);
             points.add(0, record);
+            hitsCount.addRecord(record);
+            percentage.addRecord(record);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         } 
-
-        //this.y = this.x;
-        //resp.getWriter().println("Nothing new");
-        //ctx.responseComplete();
         return "redirect";
     }
 
@@ -117,21 +159,16 @@ public class PointListCDIBean implements Serializable {
     }
 
     public UPRecord processPoint(Point point, long r){
-        System.out.println(point.xValue() + " " + point.yValue() + " " + r);
+        //System.out.println(point.xValue() + " " + point.yValue() + " " + r);
         boolean result = checkFirstQuater(point, r) || checkSecondQuater(point, r) || checkThirdQuater(point, r) || checkFourthQuater(point, r);
-        System.out.println(result);
+        //System.out.println(result);
         UPRecord record = new UPRecord(point, r, result);
-        System.out.println(record.isResult());
+        //System.out.println(record.isResult());
         return record;
     }
 
     public boolean isUser(){
         return user != null;
-    }
-
-    @PostConstruct
-    private void loadResultList(){
-        points = new ArrayList<>();
     }
 
     String login;
