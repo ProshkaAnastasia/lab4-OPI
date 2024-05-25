@@ -43,5 +43,15 @@ public class CountHits extends NotificationBroadcasterSupport implements CountHi
         totalCount = records.size();
         misses = 0;
     }
+
+    @Override
+    public long getSuccessfulHits() {
+        return successfulCount;
+    }
+
+    @Override
+    public long getTotalHits() {
+        return totalCount;
+    }
     
 }

@@ -27,5 +27,10 @@ public class SuccessPercentage implements SuccessPercentageMBean {
         success = records.stream().filter(r -> r.result).count();
         total = records.size();
     }
+
+    @Override
+    public double getPercentage() {
+        return ((double)(success) / (double)total);
+    }
     
 }
